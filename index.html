@@ -158,6 +158,17 @@ td{border:0;border-top:1px solid var(--hairline);padding:var(--sp-3) var(--sp-4)
 .nav a:hover{background:var(--hairline)}
 .nav a.on,.nav a:active{background:var(--cta-fill);color:var(--cta-text)}
 .navin{gap:var(--sp-2);flex-wrap:wrap}
+
+/* 手机端：宽表格改为自身横滑，避免撑破整页视口（不改 DOM 结构） */
+@media(max-width:640px){
+  .wrap{overflow-x:hidden}
+  table{display:block;max-width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch;
+        box-shadow:var(--shadow-card);border-radius:var(--r-card)}
+  table thead,table tbody{display:table;width:max-content;min-width:100%}
+  th,td{white-space:nowrap}
+  .nav a{min-height:24px}
+}
+a{overflow-wrap:anywhere}
 </style>
 </head>
 <body>
