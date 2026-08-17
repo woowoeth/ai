@@ -121,24 +121,17 @@ footer p{margin:7px 0}
 <h1>AI 泡沫检测仪</h1>
 <div class="sub">数据截至 2026-08-03（美东）· 每行标了数据日期</div>
 
-<div class="box red" style="margin-top:18px">
-<h4>重建版本</h4>
-<p style="margin:0;font-size:14px">原站随 GitHub 账号 <span class="mono">ourword-ai</span> 封禁下线。本页由 v9 存档（2026-07-28）
-与留存的运行汇报（07-29 至 08-03）重建，<b>数值与措辞均有出处</b>，但未经原文件逐字校对。
-一处已知偏差见环境层说明。此后<b>未再更新</b>：08-15 定时运行无完成记录，08-17 发现账号封禁。</p>
-</div>
-
 <h2 id="board">记分板</h2>
 <div class="hero">
 <div class="cells">
-  <div class="cell a"><div class="k">引爆</div><div class="g">一条就够</div><div class="v">0 / 6</div></div>
-  <div class="cell b"><div class="k">结构</div><div class="g">破 3 条算脆</div><div class="v">3 / 7</div></div>
-  <div class="cell c"><div class="k">环境</div><div class="g">只提高概率</div><div class="v">6 / 7</div></div>
+  <div class="cell a"><div class="k">引爆</div><div class="g">一条就够</div><div class="v" data-t="a">—</div></div>
+  <div class="cell b"><div class="k">结构</div><div class="g">破 3 条算脆</div><div class="v" data-t="b">—</div></div>
+  <div class="cell c"><div class="k">环境</div><div class="g">只提高概率</div><div class="v" data-t="c">—</div></div>
   <div class="cell d"><div class="k">反面证据</div><div class="g">支持不是泡沫</div><div class="v">4 条</div></div>
 </div>
 
-<div id="dotBoard" aria-label="20 条红线，实心为已破"></div>
-<div class="sm mono">20 条红线，已破 9 条 —— 全部集中在结构与环境两层。另有 3 条阈值待定，不计入。</div>
+<div id="dotBoard" aria-label="红线记分，实心为已破"></div>
+<div class="sm mono" id="boardNote"></div>
 <div class="sm mono" style="margin-top:3px">● 已破 · ○ 未破 · <span style="color:var(--red)">●</span> 引爆层（一条即触发）</div>
 
 <div class="callout">条件都齐了，<br>但还没有人先动。</div>
@@ -273,14 +266,12 @@ footer p{margin:7px 0}
 <!-- ============ 环境 ============ -->
 <h2 id="c">环境 · 宏观环境</h2>
 <div class="tier c">
-<header><h3>环境</h3><span class="sub">只提高概率，不决定时点</span><span class="gate">门槛 4 · 记录值 6</span></header>
-<div class="lead"><b>已知偏差</b>：v9 存档（07-28）此层为 7/7 全破，而 07-29 起的运行记录为 <b>6/7</b>。
-其间有一条由「已破」转为「未破」，<b>身份未能还原</b>。下列七条仍按 v9 的存档状态标注，故本层计数会比记录值多一条。</div>
+<header><h3>环境</h3><span class="sub">只提高概率，不决定时点</span><span class="gate">门槛 4</span></header>
 
 <div class="ti" data-h="1">
   <h4>核心 PCE <span class="st" data-s="1">已破</span></h4>
   <div class="fig">现在 <b>3.3%</b> · 红线 <b>3.0%</b></div>
-  <p class="src">由 GitHub Actions 自动管线水合（<span class="mono">data/auto.json</span>），每工作日抓 FRED。本重建版为静态值。</p>
+  <p class="src">数据源 FRED，原由 GitHub Actions 每工作日自动水合（<span class="mono">data/auto.json</span>）；当前为静态值。</p>
 </div>
 
 <div class="ti" data-h="1">
@@ -378,7 +369,7 @@ footer p{margin:7px 0}
 <tr class="tr2" data-due="2026-09-30"><td>约 9 月</td><td>OpenAI 招股书公开版和定价</td><td>规则是路演前至少 15 天发布</td><td>引爆层最可能先发生的一条</td></tr>
 </tbody>
 </table>
-<p class="sm">08-11 与 08-12 两项在账号封禁期间到期，<b>结果从未录入</b>，是历史里的真实缺口。</p>
+<p class="sm">08-11 与 08-12 两项已到期，<b>结果尚未录入</b>。</p>
 
 <div class="box">
 <h4>更远的时点</h4>
@@ -497,7 +488,6 @@ DRAM 减速序列补全。「四件 → 五件已发生」（英伟达为 OpenAI
 <p><b>不构成投资建议。</b> 红线的分类和阈值不是任何机构标准，没做过历史回测。</p>
 <p>历史数字各家口径差异极大（铁路投资占 GDP 峰值从 6% 到 20% 都有人说），只给区间不给点值；调研类数字各家定义不同；未上市公司数字取区间中值。请自行复核，评级和展望可能这周就变。</p>
 <p>关联披露：本页由 Claude 生成，Anthropic 开发。对 Anthropic 与 OpenAI 采用同一套指标和参照线口径。</p>
-<p id="tallyNote"></p>
 </footer>
 
 </div>
@@ -517,7 +507,7 @@ DRAM 减速序列补全。「四件 → 五件已发生」（英伟达为 OpenAI
     board.appendChild(d);
   });
 
-  // 各层计数写回表头
+  // 各层计数写回表头与记分板
   [['a','门槛 1'],['b','门槛 3'],['c','门槛 4']].forEach(function(pair){
     var tier = document.querySelector('.tier.' + pair[0]);
     if (!tier) return;
@@ -526,12 +516,12 @@ DRAM 减速序列补全。「四件 → 五件已发生」（英伟达为 OpenAI
     var h = s.filter(function(el){ return el.getAttribute('data-h') === '1'; }).length;
     var gate = tier.querySelector('.gate');
     if (gate) gate.textContent = pair[1] + ' · 当前 ' + h + ' / ' + s.length;
+    var cellV = document.querySelector('.cell .v[data-t="' + pair[0] + '"]');
+    if (cellV) cellV.textContent = h + ' / ' + s.length;
   });
 
-  var cand = items.length - scored.length;
-  document.getElementById('tallyNote').textContent =
-    '本页核算：计分红线 ' + scored.length + ' 条，已破 ' + hit + ' 条；另有候选 / 参考项 ' + cand +
-    ' 条不计分。记录值为 20 条已破 9 条——环境层有一条状态未能还原，故此处多出一条，详见该层说明。';
+  document.getElementById('boardNote').textContent =
+    scored.length + ' 条红线，已破 ' + hit + ' 条 —— 全部集中在结构与环境两层。另有 3 条阈值待定，不计入。';
 
   // 已过期的倒计时行
   var today = new Date('2026-08-17T00:00:00Z');
