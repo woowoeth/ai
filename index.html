@@ -13,16 +13,19 @@
 <body>
 <p id="boot" class="sm" style="padding:24px">加载完整正文…</p>
 <script>
-Promise.all([
-  fetch("body-a.html").then(function(r){return r.text();}),
-  fetch("body-b.html").then(function(r){return r.text();})
-]).then(function(parts){
-  document.body.innerHTML = parts[0] + parts[1];
+Promise.all([1,2,3,4].map(function(i){
+  return fetch("body-"+i+".html").then(function(r){
+    if(!r.ok) throw new Error("body-"+i+".html "+r.status);
+    return r.text();
+  });
+})).then(function(parts){
+  document.body.innerHTML = parts.join("");
   var s = document.createElement("script");
   s.src = "app.js";
   document.body.appendChild(s);
 }).catch(function(e){
-  document.getElementById("boot").textContent = "加载失败：" + e;
+  var el = document.getElementById("boot");
+  if(el) el.textContent = "加载失败：" + e;
 });
 </script>
 </body>
