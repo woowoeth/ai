@@ -35,3 +35,31 @@ var items = Array.prototype.slice.call(document.querySelectorAll('.tier .ti'));
     if (new Date(tr.getAttribute('data-due') + 'T00:00:00Z') < today) tr.classList.add('past');
   });
 })();
+
+// scrollspy: 当前章节高亮 + 活动胶囊在导航条内自动居中
+(function(){
+  var nav=document.querySelector('.navin'); if(!nav) return;
+  var links=Array.prototype.slice.call(nav.querySelectorAll('a[href^="#"]'));
+  var secs=links.map(function(a){ return document.getElementById(a.getAttribute('href').slice(1)); });
+  var last=-1;
+  function mark(){
+    var best=-1,bestTop=-1e9;
+    for(var i=0;i<secs.length;i++){
+      if(!secs[i]) continue;
+      var top=secs[i].getBoundingClientRect().top-80;
+      if(top<=0&&top>bestTop){bestTop=top;best=i;}
+    }
+    if(best===last) return;
+    last=best;
+    for(var j=0;j<links.length;j++) links[j].classList.toggle('on',j===best);
+    if(best>=0){
+      var a=links[best];
+      try{ nav.scrollTo({left:a.offsetLeft-(nav.clientWidth-a.offsetWidth)/2,behavior:'smooth'}); }
+      catch(e){ nav.scrollLeft=a.offsetLeft-(nav.clientWidth-a.offsetWidth)/2; }
+    }
+  }
+  var t=null;
+  window.addEventListener('scroll',function(){ if(t)return; t=setTimeout(function(){t=null;mark();},150); },{passive:true});
+  mark();
+})();
+
