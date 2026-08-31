@@ -27,10 +27,10 @@ var items = Array.prototype.slice.call(document.querySelectorAll('.tier .ti'));
   });
 
   document.getElementById('boardNote').textContent =
-    scored.length + ' 条红线，已破 ' + hit + ' 条 —— 全部集中在结构与环境两层。另有 3 条阈值待定，不计入。';
+    scored.length + ' 条计分红线，已破 ' + hit + ' 条 —— 全部在结构与环境两层，引爆层 0。另有 ' + (items.length - scored.length) + ' 条口径分歧或阈值待定，不计分。';
 
   // 已过期的倒计时行
-  var today = new Date('2026-08-26T00:00:00Z');
+  var today = new Date();
   document.querySelectorAll('tr.tr2').forEach(function(tr){
     if (new Date(tr.getAttribute('data-due') + 'T00:00:00Z') < today) tr.classList.add('past');
   });
