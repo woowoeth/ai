@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://ourword.ai/ai/sitemap.xml
