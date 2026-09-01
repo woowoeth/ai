@@ -30,3 +30,35 @@ html{scroll-behavior:smooth}
   footer{padding-bottom:var(--sp-5)}
 }
 
+
+/* ── 2026-09-01 · 触发位置图与小曲线 ── */
+.gzbox{margin:var(--sp-3) 0 var(--sp-1);max-width:520px}
+svg.gz{display:block;overflow:visible;margin:var(--sp-2) 0}
+svg.gz text{font-family:var(--font);font-variant-numeric:tabular-nums}
+.gz-track{fill:var(--tint)}
+.gz-bad{fill:var(--nb-down);opacity:.13}
+.gz-fill{fill:var(--ink-30);opacity:.55}
+.gz-now-band{fill:var(--ink-70);opacity:.5}
+.gz-dot{fill:var(--ink);stroke:var(--surface);stroke-width:1.5}
+.gz-dot.brk{fill:var(--red)}
+.gz-line{stroke:var(--red);stroke-width:2}
+.gz-t{font-size:9.5px;fill:var(--ink-50)}
+.gz-t-now{fill:var(--ink);font-weight:600}
+.gz-t-line{fill:var(--red)}
+.gz-t-cap{font-size:9px;fill:var(--ink-50)}
+.gz-t-str{font-weight:600;fill:var(--ink)}
+.gz-t-brk{fill:var(--red)}
+.gz-ev{fill:var(--tint)}
+.gz-ev.act{fill:var(--ink-30);opacity:.45}
+.gz-ev.act.on{fill:var(--nb-down);opacity:.16}
+.gz-thr{stroke:var(--red);stroke-width:1.25;stroke-dasharray:4 3}
+.gz-band{fill:var(--ink-70);opacity:.13}
+.gz-path{fill:none;stroke:var(--ink);stroke-width:1.75;stroke-linejoin:round;stroke-linecap:round}
+svg.gz.alt .gz-path{stroke:var(--nb-up)}
+svg.gz.alt .gz-pt{fill:var(--nb-up)}
+.gz-pt{fill:var(--ink);stroke:none}
+.gz-pt.est{fill:var(--surface);stroke:var(--ink);stroke-width:1.4}
+.gz-pt.last{stroke:var(--surface);stroke-width:1.5}
+.gz-note,.gz-why{font-size:var(--fs-caption);color:var(--soft);margin:var(--sp-1) 0 0}
+.gz-why{color:var(--amb)}
+@media(max-width:640px){ .gzbox{max-width:100%} .gz-t{font-size:11px} .gz-t-cap{font-size:10px} }
