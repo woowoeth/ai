@@ -13,6 +13,23 @@ var items = Array.prototype.slice.call(document.querySelectorAll('.tier .ti'));
     board.appendChild(d);
   });
 
+
+  // 阶段结论：由各层计数机械推出，不手写
+  (function(){
+    function cnt(k){var t=document.querySelector('.tier.'+k); if(!t) return [0,0];
+      var s=[].slice.call(t.querySelectorAll('.ti')).filter(function(e){return e.getAttribute('data-h')!=='d';});
+      return [s.filter(function(e){return e.getAttribute('data-h')==='1';}).length, s.length];}
+    var A=cnt('a'),B=cnt('b'),C=cnt('c'), st, head;
+    if(A[0]>=1){st=4;head='引爆已触发：破裂阶段';}
+    else if(B[0]>=3){st=3;head='结构已脆弱，只差引爆';}
+    else if(C[0]>=4){st=2;head='泡沫已成形，结构尚未脆弱，未破裂';}
+    else {st=1;head='泡沫条件尚未齐备';}
+    var line='环境 '+C[0]+'/'+C[1]+'（门槛 4）· 结构 '+B[0]+'/'+B[1]+'（门槛 3'+(B[0]<3?'，差 '+(3-B[0])+' 条':'')+'）· 引爆 '+A[0]+'/'+A[1]+'（一条即触发）';
+    var h=document.getElementById('vHead'), l=document.getElementById('vLine');
+    if(h){h.textContent='第 '+st+' 阶段 / 共 4：'+head; var bar=document.createElement('div'); bar.className='stg';
+      for(var i=1;i<=4;i++){var x=document.createElement('span'); x.className=i<st?'on':(i===st?'cur':''); bar.appendChild(x);} h.parentNode.insertBefore(bar,l);}
+    if(l) l.textContent=line+'。阶段：1 条件未齐 → 2 泡沫成形 → 3 结构脆弱 → 4 引爆。';
+  })();
   // 各层计数写回表头与记分板
   [['a','门槛 1'],['b','门槛 3'],['c','门槛 4']].forEach(function(pair){
     var tier = document.querySelector('.tier.' + pair[0]);
