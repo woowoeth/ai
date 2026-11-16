@@ -80,3 +80,7 @@ details.fold>summary::-webkit-details-marker{display:none}
 details.fold.h{margin:0 0 var(--sp-1)}
 .ti div.src{font-size:var(--fs-caption);color:var(--soft);margin-top:var(--sp-1)}
 @media(max-width:640px){.verdict{padding:var(--sp-4)}.verdict .vh{font-size:18px}}
+
+/* 2026-11-16 移动端表格：外包滚动容器，单元格允许换行，列对齐交给真正的表格布局 */
+.tw{margin:var(--sp-3) 0}
+@media(max-width:640px){ .tw{overflow-x:auto;-webkit-overflow-scrolling:touch;border-radius:var(--r-card);box-shadow:var(--shadow-card)} .tw table{display:table;min-width:640px;margin:0;box-shadow:none} .tw table thead{display:table-header-group;width:auto;min-width:0} .tw table tbody{display:table-row-group;width:auto;min-width:0} .tw td{white-space:normal} .tw td.n,.tw th{white-space:nowrap} }
